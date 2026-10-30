@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kalyeah</title>
+<meta name="description" content="Kalyeah: a 3v3 street-game brawler for Android. Filipino kids, a deck of tsinelas, lata and trumpo, and one barangay street.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: "Clash";
+  src: url(data:font/otf;base64,__CLASH__) format("opentype");
+  font-display: swap;
+}
+/* One visual world: the game's own blue diamond menu, cardboard logo, gold buttons.
+   Layout idea: the page is read like a portrait phone held sideways; every section is a card laid on the blue tiles. */
+:root {
+  --night: #0b2a6b;        /* deep menu blue */
+  --tile: #1a4fb0;         /* lit diamond tile */
+  --gold: #f8c431;         /* Create button, YEAH letters */
+  --gold-deep: #c98a0e;
+  --cream: #fff3d6;        /* card stock, body text */
+  --cardboard: #a8692f;    /* logo board, frames */
+  --team-blue: #3380ff;
+  --team-red: #ff4747;
+  --ink: #0a1a3f;
+  --display: "Clash", "Baloo 2", "Arial Rounded MT Bold", system-ui, sans-serif;
+  --body: "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --s-1: 0.95rem; --s0: 1.1rem; --s1: 1.4rem; --s2: 2rem; --s3: clamp(2.4rem, 5vw, 3.6rem);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--night); }
+body {
+  margin: 0;
+  color: var(--cream);
+  font-family: var(--body);
+  font-size: var(--s0);
+  line-height: 1.5;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(90,160,255,.35), transparent 70%),
+    url("img/main_bg.webp") center top / 520px auto repeat,
+    var(--night);
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--gold); }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+
+.wrap { width: min(1120px, 100% - 32px); margin-inline: auto; }
+.wrap > *, .hero-copy > *, .steps li > * { min-width: 0; }
+h1, h2, h3, p { overflow-wrap: anywhere; }
+body { overflow-x: hidden; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; line-height: 1.05; text-wrap: balance; margin: 0; letter-spacing: .01em; }
+h2 {
+  font-size: var(--s3);
+  color: #fff;
+  -webkit-text-stroke: 2px var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 0 5px 0 var(--ink);
+}
+h3 { font-size: var(--s1); }
+.tag {
+  display: inline-block;
+  font-family: var(--display);
+  font-size: var(--s-1);
+  color: var(--ink);
+  background: var(--gold);
+  padding: .2em .75em;
+  border-radius: 999px;
+  box-shadow: 0 3px 0 var(--gold-deep);
+  justify-self: start;
+  width: fit-content;
+}
+p { margin: 0; max-width: 62ch; }
+.lede { font-size: var(--s1); line-height: 1.35; font-weight: 500; }
+
+/* Buttons: the game's own gold and blue button art, nine-sliced */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 64px; padding: 0 1.6em;
+  font-family: var(--display); font-size: var(--s1); text-decoration: none;
+  color: #fff; -webkit-text-stroke: 1.5px var(--ink); paint-order: stroke fill;
+  border: 24px solid transparent;
+  border-image: url("img/button_gold.png") 40 46 fill / 24px stretch;
+  transition: transform .12s ease;
+}
+.btn.blue { border-image-source: url("img/button_blue.png"); }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(2px); }
+
+/* ---------- Hero ---------- */
+.hero { padding: 40px 0 72px; }
+.hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
+.logo { width: min(420px, 100%); filter: drop-shadow(0 10px 0 rgba(5,15,45,.55)); animation: drop .7s cubic-bezier(.2,1.6,.4,1) both; }
+@keyframes drop { from { transform: translateY(-80px); opacity: 0; } }
+.hero-copy { display: grid; gap: 22px; justify-items: start; }
+.hero h1 { font-size: var(--s2); color: var(--gold); -webkit-text-stroke: 1.5px var(--ink); paint-order: stroke fill; text-shadow: 0 4px 0 var(--ink); }
+.ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: var(--s-1); opacity: .9; padding: 0; margin: 0; list-style: none; }
+.facts li::before { content: "◆ "; color: var(--gold); }
+
+.phone {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  width: 100%;
+  max-width: 360px;
+  justify-self: center;
+  border-radius: 34px;
+  border: 10px solid #0a1230;
+  background: #0a1230;
+  box-shadow: 0 0 0 3px #2a3a70, 0 30px 60px rgba(0,0,0,.5);
+  overflow: hidden;
+}
+.phone img { width: 100%; height: 100%; object-fit: cover; }
+.hero .phone { transform: rotate(3deg); }
+
+/* ---------- Sections ---------- */
+section { padding: 72px 0; }
+.head { display: grid; gap: 14px; margin-bottom: 36px; }
+
+/* How a round goes */
+.round .wrap { display: grid; grid-template-columns: .8fr 1.2fr; gap: 48px; align-items: center; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: step; }
+.steps li {
+  counter-increment: step;
+  display: grid; grid-template-columns: 56px 1fr; gap: 16px; align-items: start;
+  background: rgba(8, 24, 70, .78);
+  border: 2px solid rgba(120, 170, 255, .35);
+  border-radius: 18px;
+  padding: 16px 18px;
+}
+.steps li::before {
+  content: counter(step);
+  font-family: var(--display); font-size: 1.7rem; color: var(--ink);
+  width: 56px; height: 56px; display: grid; place-items: center;
+  background: var(--gold); border-radius: 14px; box-shadow: 0 4px 0 var(--gold-deep);
+}
+.steps h3 { margin-bottom: 4px; }
+.num { font-family: var(--display); color: var(--gold); font-variant-numeric: tabular-nums; }
+.blue-t { color: #8fb8ff; } .red-t { color: #ff8a8a; }
+
+/* The deck */
+.deck { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 18px; }
+.card { display: grid; gap: 6px; text-align: center; }
+.card .art { position: relative; transition: transform .18s ease; }
+.card:hover .art { transform: translateY(-6px) rotate(-2deg); }
+.cost {
+  position: absolute; left: 50%; bottom: -10px; transform: translateX(-50%);
+  width: 38px; height: 38px; display: grid; place-items: center;
+  font-family: var(--display); font-size: 1.15rem; color: #fff; -webkit-text-stroke: 1px var(--ink); paint-order: stroke fill;
+  background: radial-gradient(circle at 35% 30%, #9fe0ff, #2a8ee8 60%, #155fb3);
+  border: 2px solid #0c3f80; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+}
+.card h3 { font-size: 1.05rem; margin-top: 12px; }
+.card .kind { font-size: .85rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.k-attack { color: #ff8a7a; } .k-control { color: #c9a2ff; } .k-block { color: #8fc6ff; } .k-heal { color: #8ff0a8; }
+.card p { font-size: .92rem; line-height: 1.35; opacity: .85; }
+/* 1. Deal the deck: cards rest visible; script adds .dealing once the deck scrolls into view */
+.deck.dealing .card { animation: deal .55s cubic-bezier(.2,1.3,.4,1) backwards; animation-delay: calc(var(--i) * 70ms); }
+.deck.dealing .cost { animation: pop .35s cubic-bezier(.2,1.8,.4,1) backwards; animation-delay: calc(var(--i) * 70ms + 420ms); }
+@keyframes deal { from { opacity: 0; transform: translate(-40vw, -120px) rotate(-25deg) scale(.6); } }
+@keyframes pop { from { transform: translateX(-50%) scale(0); } }
+
+/* 2 + 3. A live hand: four cards, Next, and the ice water bar, like the bottom of the match screen */
+.hand { margin-top: 18px; display: grid; gap: 10px; }
+.tray {
+  display: grid; grid-template-columns: .72fr repeat(4, 1fr); gap: 10px; align-items: end;
+  padding: 16px 14px 14px;
+  background: linear-gradient(#3d8cf5, #1f5fd0 70%, #1a4fb0);
+  border-radius: 20px 20px 14px 14px;
+  box-shadow: inset 0 3px 0 rgba(255,255,255,.35), 0 10px 24px rgba(0,0,0,.35);
+}
+.slot { position: relative; display: grid; gap: 4px; justify-items: center; }
+.slot img { width: 100%; filter: drop-shadow(0 4px 4px rgba(0,0,0,.35)); }
+.slot .cost { width: 30px; height: 30px; font-size: .95rem; bottom: -8px; }
+.slot.next { align-self: start; }
+.slot.next span { font-family: var(--display); font-size: .85rem; }
+.slot.next img { opacity: .9; transition: opacity .2s ease; }
+.slot .art { position: relative; width: 100%; }
+.slot.low .art img { filter: grayscale(.7) brightness(.7) drop-shadow(0 4px 4px rgba(0,0,0,.35)); }
+.slot.thrown .art { animation: throw .45s ease-in forwards; }
+.slot.incoming .art { animation: arrive .4s cubic-bezier(.2,1.6,.4,1); }
+@keyframes throw { to { transform: translateY(-160px) rotate(18deg) scale(.5); opacity: 0; } }
+@keyframes arrive { from { transform: translateX(-120%) scale(.6); opacity: .3; } }
+.water { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: center; }
+.water b { font-family: var(--display); font-weight: 400; font-size: 1.4rem; font-variant-numeric: tabular-nums; min-width: 2.2ch; text-align: right; }
+.bar { position: relative; height: 18px; border-radius: 9px; background: #0c2a66; overflow: hidden; box-shadow: inset 0 2px 3px rgba(0,0,0,.4); }
+.bar i { position: absolute; inset: 0 auto 0 0; width: calc(var(--w, .5) * 100%); background: linear-gradient(#9fe0ff, #2a8ee8); }
+.bar::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), #0c2a66 calc(10% - 2px) 10%); }
+.hand small { font-size: .85rem; opacity: .75; }
+
+.deck-note { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px 26px; font-size: var(--s-1); }
+
+/* Kids */
+.kids { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+.kid { display: grid; gap: 8px; justify-items: center; text-align: center; }
+.kid img { transition: transform .2s ease; filter: drop-shadow(0 10px 12px rgba(0,0,0,.4)); }
+.kid:nth-child(odd) img { transform: rotate(-3deg); }
+.kid:nth-child(even) img { transform: rotate(3deg) translateY(10px); }
+.kid:hover img { transform: rotate(0) translateY(-8px) scale(1.04); }
+.kid h3 { font-size: var(--s1); color: var(--gold); -webkit-text-stroke: 1px var(--ink); paint-order: stroke fill; }
+.kid p { font-size: .9rem; line-height: 1.35; opacity: .85; }
+.fair { margin-top: 30px; display: flex; gap: 14px; align-items: center; background: rgba(8,24,70,.78); border-radius: 18px; padding: 16px 20px; border: 2px solid rgba(120,170,255,.35); }
+
+/* Modes */
+.modes { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 22px; align-items: center; }
+.m-local {
+  position: relative; padding: 26px 22px 28px; border-radius: 28px;
+  background: radial-gradient(ellipse at 50% 35%, rgba(74,160,255,.55), rgba(10,40,110,.85) 70%);
+  border: 3px solid #7db8ff;
+  box-shadow: 0 0 0 6px rgba(74,160,255,.18), 0 0 60px rgba(74,160,255,.45);
+}
+.m-local h3 { font-size: var(--s3); }
+.m-local .tagline { font-size: var(--s1); }
+.m-local p { font-size: var(--s0); opacity: 1; }
+.m-local .tag { justify-self: center; }
+.m-local ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.m-local li { font-weight: 700; font-size: .9rem; padding: .15em .8em; border-radius: 999px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.3); }
+.m-online, .m-practice { opacity: .9; }
+.mode { display: grid; gap: 10px; justify-items: center; text-align: center; }
+.mode img { filter: drop-shadow(0 18px 20px rgba(0,0,0,.45)); }
+.mode h3 { font-size: var(--s2); -webkit-text-stroke: 1.5px var(--ink); paint-order: stroke fill; text-shadow: 0 4px 0 var(--ink); }
+.mode .tagline { font-family: var(--display); font-size: var(--s0); }
+.mode p { font-size: .95rem; opacity: .85; }
+.m-online h3 { color: #6ff09a; } .m-local h3 { color: #7db8ff; } .m-practice h3 { color: #c79bff; }
+
+/* Screens strip */
+.screens { display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; }
+.screens figure { margin: 0; display: grid; gap: 12px; justify-items: center; }
+.screens .phone { width: 250px; }
+.screens figcaption { font-family: var(--display); }
+
+/* Footer */
+footer { padding: 64px 0 48px; background: linear-gradient(transparent, rgba(4,12,36,.9) 30%); }
+footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; }
+.specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px 24px; margin: 22px 0 0; }
+.specs dt { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; opacity: .7; }
+.specs dd { margin: 0; font-weight: 700; }
+.team { margin-top: 30px; display: grid; gap: 10px; }
+.team ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 28px; }
+.team li { font-family: var(--display); font-size: var(--s1); color: var(--gold); -webkit-text-stroke: 1px var(--ink); paint-order: stroke fill; }
+.small { font-size: .85rem; opacity: .7; margin-top: 28px; }
+
+@media (max-width: 900px) {
+  .hero .wrap, .round .wrap { grid-template-columns: 1fr; }
+  .kids { grid-template-columns: repeat(3, 1fr); }
+  .modes { grid-template-columns: 1fr; max-width: 420px; margin-inline: auto; }
+  .m-local { order: -1; }
+  footer .wrap { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .kids { grid-template-columns: repeat(2, 1fr); }
+  .deck { grid-template-columns: repeat(2, 1fr); }
+  .screens .phone { width: 100%; max-width: 300px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <img class="logo" src="img/kalyeah_logo.png" alt="Kalyeah!" width="1000" height="357">
+      <span class="tag">A NEW WAY TO PLAY THE CLASSICS</span>
+      <h1>Grab your tsinelas. The whole barangay is watching.</h1>
+      <p class="lede">A 3v3 street-game brawler for Android. Six kids, one street, a shuffled deck of slippers, cans, jackstones and spinning tops. Tag the other team, save your friends, and take their electric post.</p>
+      <div class="ctas">
+        <a class="btn" href="https://github.com/earl-gh/kalyeah/actions/workflows/android.yml">Get the Android APK</a>
+        <a class="btn blue" href="#play">Play with friends nearby</a>
+      </div>
+      <ul class="facts">
+        <li>1v1, 2v2, 3v3</li>
+        <li>Portrait, one thumb</li>
+        <li>No accounts, no levels</li>
+        <li>Local play, no internet needed</li>
+        <li>Practice works offline</li>
+      </ul>
+    </div>
+    <div class="phone"><img src="img/boot_bg.webp" alt="The six Kalyeah kids cheering in front of Nena Store, a can and a pink slipper on the chalked street" width="941" height="1672"></div>
+  </div>
+</header>
+
+<section class="round" id="round">
+  <div class="wrap">
+    <div class="phone"><img src="img/shot_match.jpg" alt="A live practice match: blue and red bases at the corners, kids with numbered health bars, four weapon cards on the blue tray at the bottom" width="720" height="1280" loading="lazy"></div>
+    <div>
+      <div class="head">
+        <span class="tag">Agawan Base</span>
+        <h2>How a round goes</h2>
+        <p>The base-stealing game every Filipino kid played after school, now on one street seen from above. Everyone starts equal: <span class="num">100</span> HP, the same speed, the same hitbox.</p>
+      </div>
+      <ol class="steps">
+        <li><div><h3>Throw what's in your hand</h3><p>Four cards sit on your tray, the fifth waits as Next. Tap a card to throw it, drag to aim. Each one costs ice water, which fills while you play.</p></div></li>
+        <li><div><h3>Tag them</h3><p>Bring a kid to <span class="num">0</span> HP and they're tagged: off to the sidewalk beside their rescue area, out of the round until a friend comes.</p></div></li>
+        <li><div><h3>Save your friends</h3><p>Stand in your rescue area for <span class="num">5 s</span> to free the teammate who got tagged first. Every rescue restarts a <span class="num">10 s</span> countdown, so pick your moment.</p></div></li>
+        <li><div><h3>Take their post</h3><p>Hold the <span class="red-t">enemy base</span> for <span class="num">12 s</span> alone, faster with friends, or tag their whole team. After <span class="num">3:00</span> the round goes to overtime and a capture takes only <span class="num">3 s</span>. First to <span class="num">3</span> wins the match.</p></div></li>
+      </ol>
+      <div class="hand" id="hand" aria-label="A hand of four weapon cards cycling as they are thrown">
+        <div class="tray">
+          <div class="slot next"><span>Next</span><div class="art"><img alt="" width="512" height="677"></div></div>
+          <div class="slot"><div class="art"><img alt="" width="512" height="677"><span class="cost"></span></div></div>
+          <div class="slot"><div class="art"><img alt="" width="512" height="677"><span class="cost"></span></div></div>
+          <div class="slot"><div class="art"><img alt="" width="512" height="677"><span class="cost"></span></div></div>
+          <div class="slot"><div class="art"><img alt="" width="512" height="677"><span class="cost"></span></div></div>
+        </div>
+        <div class="water"><b id="water-num">5</b><div class="bar"><i id="water-bar"></i></div></div>
+        <small>Ice water fills at 0.6 a second, up to 10. Here it runs twice as fast.</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="kids">
+  <div class="wrap">
+    <div class="head">
+      <span class="tag">Choose your kid</span>
+      <h2>Six kids from the block</h2>
+      <p>Pick the one that looks like you, or your cousin. A team never has the same kid twice.</p>
+    </div>
+    <div class="kids">
+      __KIDS__
+    </div>
+    <div class="fair"><span class="tag">Fair play</span><p>Kids are cosmetic only. Same HP, same speed, same hitbox. The only thing that wins is how you play your hand.</p></div>
+  </div>
+</section>
+
+<section id="deck">
+  <div class="wrap">
+    <div class="head">
+      <span class="tag">14 cards, one deck</span>
+      <h2>Weapons from the games you grew up with</h2>
+      <p>Nobody picks weapons. Every card is in one shuffled deck that cycles: throw one and it goes to the back, the next one slides in. The number on each card is its ice water cost.</p>
+    </div>
+    <div class="deck">
+      __CARDS__
+    </div>
+    <div class="deck-note">
+      <span><b class="k-attack">Attack</b> hurts</span>
+      <span><b class="k-control">Control</b> slows, stuns or knocks back</span>
+      <span><b class="k-block">Block</b> stops throws</span>
+      <span><b class="k-heal">Heal</b> patches up you or a friend</span>
+    </div>
+  </div>
+</section>
+
+<section id="play">
+  <div class="wrap">
+    <div class="head">
+      <span class="tag">Three ways to play</span>
+      <h2>Best with your barkada, right beside you</h2>
+    </div>
+    <div class="modes">
+      <div class="mode m-online"><img src="img/modes/online.png" alt="Glowing blue online court diorama" width="768" height="717" loading="lazy"><h3>Online</h3><span class="tagline">Invite friends with a room code!</span><p>Make a private room, share the 8-character code, pick your team slot and ready up.</p></div>
+      <div class="mode m-local"><span class="tag">Best way to play</span><img src="img/modes/hotspot.png" alt="Street court diorama with a hopscotch grid" width="768" height="717" loading="lazy"><h3>Local</h3><span class="tagline">Battle your friends nearby!</span><p>The way the street games were always played: together, in the same place. One phone turns on its hotspot and hosts the room, and everyone nearby joins it in a tap.</p><ul><li>No internet</li><li>No server</li><li>No room code</li><li>Up to 3v3</li></ul></div>
+      <div class="mode m-practice"><img src="img/modes/practice.png" alt="Street basketball court diorama with a wooden training dummy" width="768" height="717" loading="lazy"><h3>Practice</h3><span class="tagline">Take on 3 bots, solo!</span><p>A full 3v3 with two bot allies against three bot rivals. Works with no signal at all.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="screens">
+  <div class="wrap">
+    <div class="head"><span class="tag">Straight from the game</span><h2>On your phone</h2></div>
+    <div class="screens">
+      <figure><div class="phone"><img src="img/shot_home.jpg" alt="Home screen with the Local mode card and Create and Join buttons" width="720" height="1280" loading="lazy"></div><figcaption>Home</figcaption></figure>
+      <figure><div class="phone"><img src="img/shot_pick.jpg" alt="Choose your kid screen showing Ligaya's card" width="720" height="1280" loading="lazy"></div><figcaption>Choose your kid</figcaption></figure>
+      <figure><div class="phone"><img src="img/shot_match.jpg" alt="Practice match in progress" width="720" height="1280" loading="lazy"></div><figcaption>In the match</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <h2>Tara, laro tayo!</h2>
+      <dl class="specs">
+        <div><dt>Platform</dt><dd>Android 8.0 or newer</dd></div>
+        <div><dt>Phone</dt><dd>64-bit, 3 GB RAM</dd></div>
+        <div><dt>Screen</dt><dd>Portrait only</dd></div>
+        <div><dt>Sign-in</dt><dd>None</dd></div>
+      </dl>
+      <div class="team">
+        <span class="tag">Made by</span>
+        <ul>
+          <li>Den Earl De Dios</li>
+          <li>Jayvee Salcedo</li>
+          <li>Richard Ace Vallo</li>
+        </ul>
+      </div>
+      <p class="small">Kalyeah is an entry for an Android game development competition, built with Godot 4.6.</p>
+    </div>
+    <img src="img/kalyeah_logo.png" alt="" width="1000" height="357" style="width:260px" loading="lazy">
+  </div>
+</footer>
+
+<script>
+const DECK = __DECK__;
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// 1. Deal the deck once it scrolls into view
+const deck = document.querySelector(".deck");
+deck.querySelectorAll(".card").forEach((c, i) => c.style.setProperty("--i", i));
+if (!reduce && "IntersectionObserver" in window) {
+  const io = new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) { deck.classList.add("dealing"); io.disconnect(); }
+  }, { threshold: 0.15 });
+  io.observe(deck);
+}
+
+// 2 + 3. The hand cycles: throw an affordable card, it goes to the back, Next slides in
+(() => {
+  const MAX = 10, REGEN = 0.6 * 2, THROW_EVERY = 1.6;
+  const queue = DECK.slice();
+  for (let i = queue.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [queue[i], queue[j]] = [queue[j], queue[i]]; }
+  const hand = queue.splice(0, 4);
+  let next = queue.shift();
+  let water = 5, wait = THROW_EVERY, busy = false, visible = false, last = 0;
+  const slots = [...document.querySelectorAll("#hand .slot:not(.next)")];
+  const nextImg = document.querySelector("#hand .slot.next img");
+  const num = document.getElementById("water-num"), bar = document.getElementById("water-bar");
+  const show = (slot, card) => {
+    const img = slot.querySelector("img");
+    img.src = "img/cards/" + card.id + ".webp"; img.alt = card.name;
+    slot.querySelector(".cost").textContent = card.cost;
+  };
+  const paint = () => {
+    num.textContent = Math.floor(water);
+    bar.style.setProperty("--w", water / MAX);
+    slots.forEach((s, i) => s.classList.toggle("low", hand[i].cost > water));
+  };
+  slots.forEach((s, i) => show(s, hand[i]));
+  nextImg.src = "img/cards/" + next.id + ".webp"; nextImg.alt = "Next: " + next.name;
+  paint();
+  if (reduce) return;
+
+  const throwOne = () => {
+    const ready = hand.map((c, i) => i).filter(i => hand[i].cost <= water);
+    if (!ready.length) return;
+    const i = ready[Math.floor(Math.random() * ready.length)];
+    const slot = slots[i];
+    water -= hand[i].cost; busy = true; paint();
+    slot.classList.add("thrown");
+    setTimeout(() => {
+      queue.push(hand[i]);
+      hand[i] = next; next = queue.shift();
+      show(slot, hand[i]);
+      nextImg.src = "img/cards/" + next.id + ".webp"; nextImg.alt = "Next: " + next.name;
+      slot.classList.remove("thrown"); slot.classList.add("incoming");
+      setTimeout(() => { slot.classList.remove("incoming"); busy = false; }, 400);
+      paint();
+    }, 450);
+  };
+  const frame = (t) => {
+    const dt = Math.min((t - last) / 1000 || 0, 0.1); last = t;
+    if (visible && !document.hidden) {
+      water = Math.min(MAX, water + REGEN * dt);
+      wait -= dt;
+      if (wait <= 0 && !busy) { wait = THROW_EVERY + Math.random(); throwOne(); }
+      paint();
+    }
+    requestAnimationFrame(frame);
+  };
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(document.getElementById("hand"));
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
