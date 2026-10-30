@@ -98,8 +98,13 @@ p { margin: 0; max-width: 62ch; }
 .hero-copy { display: grid; gap: 22px; justify-items: start; }
 .hero h1 { font-size: var(--s2); color: var(--gold); -webkit-text-stroke: 1.5px var(--ink); paint-order: stroke fill; text-shadow: 0 4px 0 var(--ink); }
 .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
-.facts { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: var(--s-1); opacity: .9; padding: 0; margin: 0; list-style: none; }
-.facts li::before { content: "◆ "; color: var(--gold); }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; list-style: none; }
+.facts li {
+  font-weight: 700; font-size: .9rem; line-height: 1.2;
+  padding: .4em .95em; border-radius: 999px;
+  background: rgba(8, 24, 70, .7); border: 1.5px solid rgba(143, 184, 255, .55);
+  box-shadow: 0 3px 0 rgba(5, 15, 45, .6);
+}
 
 .phone {
   position: relative;
