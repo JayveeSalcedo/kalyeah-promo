@@ -255,10 +255,47 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
   .m-local { order: -1; }
   footer .wrap { grid-template-columns: 1fr; }
 }
-@media (max-width: 480px) {
-  .kids { grid-template-columns: repeat(2, 1fr); }
-  .deck { grid-template-columns: repeat(2, 1fr); }
-  .screens .phone { width: 100%; max-width: 300px; }
+.swipe-hint { display: none; }
+/* Phones: thumb-sized buttons, smaller mockups, and the long grids become swipe rows like the game's own carousels */
+@media (max-width: 600px) {
+  :root { --s3: 2.1rem; --s2: 1.6rem; --s1: 1.2rem; }
+  section { padding: 44px 0; }
+  .hero { padding: 24px 0 32px; }
+  .hero .wrap { gap: 28px; }
+  .logo { width: min(300px, 100%); }
+  .lede { font-size: 1.05rem; }
+  .ctas { display: grid; width: 100%; gap: 10px; }
+  .btn { width: 100%; min-height: 56px; font-size: 1.15rem; border-width: 18px; border-image-width: 18px; padding: 0 .4em; white-space: nowrap; }
+  .facts li { font-size: .8rem; }
+  .phone { border-width: 7px; border-radius: 26px; }
+  .hero .phone { max-width: 250px; transform: rotate(2deg); }
+  .round .wrap { gap: 28px; }
+  .round .phone { order: 2; max-width: 250px; }
+  .steps li { grid-template-columns: 40px 1fr; gap: 12px; padding: 14px; }
+  .steps li::before { width: 40px; height: 40px; font-size: 1.25rem; border-radius: 11px; }
+  .tray { gap: 6px; padding: 12px 10px 12px; }
+  .head { margin-bottom: 22px; }
+
+  .kids, .deck, .screens {
+    display: flex; flex-wrap: nowrap; justify-content: flex-start; gap: 14px;
+    overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+    margin-inline: -16px; padding: 6px 16px 18px; scrollbar-width: none;
+  }
+  .kids::-webkit-scrollbar, .deck::-webkit-scrollbar, .screens::-webkit-scrollbar { display: none; }
+  .kid, .card, .screens figure { flex: 0 0 auto; scroll-snap-align: center; }
+  .kid { width: 62%; }
+  .card { width: 46%; }
+  .screens figure { width: 66%; }
+  .screens .phone { width: 100%; }
+  .kid:nth-child(even) img { transform: rotate(3deg); }
+  .swipe-hint { display: block; font-size: .85rem; font-weight: 700; opacity: .75; margin: -6px 0 12px; }
+
+  .fair { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .modes { gap: 30px; }
+  .m-online img, .m-practice img { max-width: 260px; }
+  .m-local { padding: 20px 16px 22px; }
+  .specs { grid-template-columns: 1fr 1fr; }
+  footer img { width: 200px !important; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -327,6 +364,7 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
       <h2>Six kids from the block</h2>
       <p>Pick the one that looks like you, or your cousin. A team never has the same kid twice.</p>
     </div>
+    <p class="swipe-hint">Swipe to meet all six →</p>
     <div class="kids">
       __KIDS__
     </div>
@@ -341,6 +379,7 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
       <h2>Weapons from the games you grew up with</h2>
       <p>Nobody picks weapons. Every card is in one shuffled deck that cycles: throw one and it goes to the back, the next one slides in. The number on each card is its ice water cost.</p>
     </div>
+    <p class="swipe-hint">Swipe through all 14 cards →</p>
     <div class="deck">
       __CARDS__
     </div>
@@ -370,6 +409,7 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
 <section id="screens">
   <div class="wrap">
     <div class="head"><span class="tag">Straight from the game</span><h2>On your phone</h2></div>
+    <p class="swipe-hint">Swipe for more screens →</p>
     <div class="screens">
       <figure><div class="phone"><img src="img/shot_home.jpg" alt="Home screen with the Local mode card and Create and Join buttons" width="720" height="1280" loading="lazy"></div><figcaption>Home</figcaption></figure>
       <figure><div class="phone"><img src="img/shot_pick.jpg" alt="Choose your kid screen showing Ligaya's card" width="720" height="1280" loading="lazy"></div><figcaption>Choose your kid</figcaption></figure>
