@@ -1,0 +1,84 @@
+name: Sync APK
+# Copies the newest APK that passed the game's "Android APK" workflow on earl-gh/kalyeah main into a release here,
+# named kalyeah.apk and marked latest, so the site's button (releases/latest/download/kalyeah.apk) always gets it.
+# Workflow builds can only be downloaded by logged-in users and expire; releases are public and stay.
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: apk-sync
+  cancel-in-progress: false
+env:
+  GAME_REPO: earl-gh/kalyeah
+  KEEP: "5"
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Find the newest successful build on main
+        id: find
+        env:
+          # A read-only token is only needed if the built-in one may not read the other repo's builds
+          GH_TOKEN: ${{ secrets.GAME_REPO_TOKEN || github.token }}
+        run: |
+          run=$(gh run list -R "$GAME_REPO" -w android.yml -b main -s success -L 1 --json databaseId,headSha --jq '.[0]')
+          if [ -z "$run" ] || [ "$run" = "null" ]; then echo "No successful build on main yet."; exit 0; fi
+          id=$(echo "$run" | jq -r .databaseId)
+          sha=$(echo "$run" | jq -r .headSha)
+          echo "id=$id" >> "$GITHUB_OUTPUT"
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+          echo "tag=apk-${sha:0:7}" >> "$GITHUB_OUTPUT"
+          echo "Newest successful build: run $id, commit ${sha:0:7}"
+
+      - name: Skip if already released
+        id: check
+        if: steps.find.outputs.tag != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "${{ steps.find.outputs.tag }}" -R "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            echo "Already released as ${{ steps.find.outputs.tag }}."
+            echo "new=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "new=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Download the APK
+        if: steps.check.outputs.new == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GAME_REPO_TOKEN || github.token }}
+        run: |
+          gh run download "${{ steps.find.outputs.id }}" -R "$GAME_REPO" -n kalyeah-debug-apk -D apk
+          mv apk/kalyeah-debug.apk kalyeah.apk
+          ls -l kalyeah.apk
+
+      - name: Publish the release
+        if: steps.check.outputs.new == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sha="${{ steps.find.outputs.sha }}"
+          gh release create "${{ steps.find.outputs.tag }}" kalyeah.apk -R "$GITHUB_REPOSITORY" --target main --latest \
+            --title "Kalyeah APK (${sha:0:7})" \
+            --notes "Debug APK of Kalyeah for Android 8.0+ (arm64), built and tested by the Android APK workflow on $GAME_REPO main.
+
+          - Game commit: https://github.com/$GAME_REPO/commit/$sha
+          - Build run: https://github.com/$GAME_REPO/actions/runs/${{ steps.find.outputs.id }}
+
+          On your phone, allow installing apps from your browser when asked."
+
+      - name: Keep only the newest synced releases
+        if: steps.check.outputs.new == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release list -R "$GITHUB_REPOSITORY" -L 100 --json tagName,createdAt \
+            --jq 'map(select(.tagName | startswith("apk-"))) | sort_by(.createdAt) | reverse | .[env.KEEP | tonumber:] | .[].tagName' |
+          while read -r tag; do
+            echo "Deleting old release $tag"
+            gh release delete "$tag" -R "$GITHUB_REPOSITORY" --yes --cleanup-tag
+          done
