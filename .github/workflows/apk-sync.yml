@@ -69,7 +69,9 @@ jobs:
           - Game commit: https://github.com/$GAME_REPO/commit/$sha
           - Build run: https://github.com/$GAME_REPO/actions/runs/${{ steps.find.outputs.id }}
 
-          On your phone, allow installing apps from your browser when asked."
+          On your phone, allow installing apps from your browser when asked.
+
+          Website: https://kalyeah-promo.vercel.app/"
 
       - name: Keep only the newest synced releases
         if: steps.check.outputs.new == 'true'
