@@ -137,31 +137,6 @@ p { margin: 0; max-width: 62ch; }
 section { padding: 72px 0; }
 .head { display: grid; gap: 14px; margin-bottom: 36px; }
 
-/* The deck */
-.deck { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 18px; }
-.card { display: grid; gap: 6px; text-align: center; }
-.card .art { position: relative; transition: transform .18s ease; }
-.card:hover .art { transform: translateY(-6px) rotate(-2deg); }
-.cost {
-  position: absolute; left: 50%; bottom: -10px; transform: translateX(-50%);
-  width: 38px; height: 38px; display: grid; place-items: center;
-  font-family: var(--display); font-size: 1.15rem; color: #fff; -webkit-text-stroke: 1px var(--ink); paint-order: stroke fill;
-  background: radial-gradient(circle at 35% 30%, #9fe0ff, #2a8ee8 60%, #155fb3);
-  border: 2px solid #0c3f80; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-}
-.card h3 { font-size: 1.05rem; margin-top: 12px; }
-.card .kind { font-size: .85rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
-.k-attack { color: #ff8a7a; } .k-control { color: #c9a2ff; } .k-block { color: #8fc6ff; } .k-heal { color: #8ff0a8; }
-.card p { font-size: .92rem; line-height: 1.35; opacity: .85; }
-/* 1. Deal the deck: cards rest visible; script adds .dealing once the deck scrolls into view */
-.deck.dealing .card { animation: deal .55s cubic-bezier(.2,1.3,.4,1) backwards; animation-delay: calc(var(--i) * 70ms); }
-.deck.dealing .cost { animation: pop .35s cubic-bezier(.2,1.8,.4,1) backwards; animation-delay: calc(var(--i) * 70ms + 420ms); }
-@keyframes deal { from { opacity: 0; transform: translate(-40vw, -120px) rotate(-25deg) scale(.6); } }
-@keyframes pop { from { transform: translateX(-50%) scale(0); } }
-
-
-.deck-note { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px 26px; font-size: var(--s-1); }
-
 /* Three street games */
 .games { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .game {
@@ -257,15 +232,14 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
   .games { grid-template-columns: 1fr; }
   .game { grid-template-rows: 130px auto auto auto; }
   .game .icon { height: 130px; }
-  .kids, .deck, .screens {
+  .kids, .screens {
     display: flex; flex-wrap: nowrap; justify-content: flex-start; gap: 14px;
     overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
     margin-inline: -16px; padding: 6px 16px 18px; scrollbar-width: none;
   }
-  .kids::-webkit-scrollbar, .deck::-webkit-scrollbar, .screens::-webkit-scrollbar { display: none; }
-  .kid, .card, .screens figure { flex: 0 0 auto; scroll-snap-align: center; }
+  .kids::-webkit-scrollbar, .screens::-webkit-scrollbar { display: none; }
+  .kid, .screens figure { flex: 0 0 auto; scroll-snap-align: center; }
   .kid { width: 62%; }
-  .card { width: 46%; }
   .screens figure { width: 66%; }
   .screens .phone { width: 100%; }
   .kid:nth-child(even) img { transform: rotate(3deg); }
@@ -374,39 +348,6 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
   </div>
 </section>
 
-<section id="deck">
-  <div class="wrap">
-    <div class="head">
-      <span class="tag">14 cards, one deck</span>
-      <h2>Weapons from the games you grew up with</h2>
-      <p>In Agawan Base, nobody picks weapons. Every card is in one shuffled deck that cycles: throw one and it goes to the back, the next one slides in. The number on each card is its ice water cost.</p>
-    </div>
-    <p class="swipe-hint">Swipe through all 14 cards →</p>
-    <div class="deck">
-      <div class="card"><div class="art"><img src="img/cards/tsinelas_heavy.webp" alt="Tsinelas · Heavy card art" width="512" height="677" loading="lazy"><span class="cost" title="Ice water cost">4</span></div><h3>Tsinelas · Heavy</h3><span class="kind k-attack">Attack · Tumbang preso</span><p>One big slipper flies out and comes back, hitting both ways!</p></div>
-      <div class="card"><div class="art"><img src="img/cards/tsinelas_light.webp" alt="Tsinelas · Light card art" width="512" height="677" loading="lazy"><span class="cost" title="Ice water cost">3</span></div><h3>Tsinelas · Light</h3><span class="kind k-attack">Attack · Tumbang preso</span><p>Three slippers fly out and come back, hitting both ways!</p></div>
-      <div class="card"><div class="art"><img src="img/cards/lata.webp" alt="Lata card art" width="512" height="677" loading="lazy"><span class="cost" title="Ice water cost">5</span></div><h3>Lata</h3><span class="kind k-control">Control · Tumbang preso</span><p>Toss a can! Whoever it hits turns into a can for a moment.</p></div>
-      <div class="card"><div class="art"><img src="img/cards/bato_heavy.webp" alt="Bato · Heavy card art" width="512" height="677" loading="lazy"><span class="cost" title="Ice water cost">4</span></div><h3>Bato · Heavy</h3><span class="kind k-attack">Attack · Bato-bato-pik</span><p>Call a rock meteor! It lands where you aim and stuns everyone it hits.</p></div>
-      <div class="card"><div class="art"><img src="img/cards/bato_light.webp" alt="Bato · Light card art" width="512" height="677" loading="lazy"><span class="cost" title="Ice water cost">2</span></div><h3>Bato · Light</h3><span class="kind k-attack">Attack · Bato-bato-pik</span><p>Throw a rock that chases the nearest enemy!</p></div>
-      <div class="card"><div class="art"><img src="img/cards/gunting_heavy.webp" alt="Gunting · Heavy card art" width="512" height="677" loading="lazy"><span class="cost" title="Ice water cost">3</span></div><h3>Gunting · Heavy</h3><span class="kind k-attack">Attack · Bato-bato-pik</span><p>One big snip, a moment late. It hits hard up close!</p></div>
-      <div class="card"><div class="art"><img src="img/cards/gunting_light.webp" alt="Gunting · Light card art" width="512" height="677" loading="lazy"><span class="cost" title="Ice water cost">2</span></div><h3>Gunting · Light</h3><span class="kind k-attack">Attack · Bato-bato-pik</span><p>Snip, snip! Hold longer for more snips.</p></div>
-      <div class="card"><div class="art"><img src="img/cards/papel_trap.webp" alt="Papel · Trap card art" width="512" height="677" loading="lazy"><span class="cost" title="Ice water cost">4</span></div><h3>Papel · Trap</h3><span class="kind k-control">Control · Bato-bato-pik</span><p>Lay a paper trap on the road! Enemies who step on it slow down.</p></div>
-      <div class="card"><div class="art"><img src="img/cards/papel_shield.webp" alt="Papel · Shield card art" width="512" height="677" loading="lazy"><span class="cost" title="Ice water cost">5</span></div><h3>Papel · Shield</h3><span class="kind k-block">Block · Bato-bato-pik</span><p>Raise a paper wall! It blocks enemy throws.</p></div>
-      <div class="card"><div class="art"><img src="img/cards/bola.webp" alt="Bola card art" width="512" height="677" loading="lazy"><span class="cost" title="Ice water cost">4</span></div><h3>Bola</h3><span class="kind k-control">Control · Jackstone</span><p>A bouncing ball that knocks enemies off their feet!</p></div>
-      <div class="card"><div class="art"><img src="img/cards/jacks.webp" alt="Jacks card art" width="512" height="677" loading="lazy"><span class="cost" title="Ice water cost">4</span></div><h3>Jacks</h3><span class="kind k-control">Control · Jackstone</span><p>Scatter jacks on the road! Enemies who walk over them slow down.</p></div>
-      <div class="card"><div class="art"><img src="img/cards/trumpo.webp" alt="Trumpo card art" width="512" height="677" loading="lazy"><span class="cost" title="Ice water cost">5</span></div><h3>Trumpo</h3><span class="kind k-control">Control · Trumpo</span><p>A spinning top that sends enemies flying!</p></div>
-      <div class="card"><div class="art"><img src="img/cards/langit_lupa.webp" alt="Lupa · Soil Block card art" width="512" height="677" loading="lazy"><span class="cost" title="Ice water cost">5</span></div><h3>Lupa · Soil Block</h3><span class="kind k-block">Block · Langit Lupa</span><p>Raise a block of earth! It stops enemy throws, then crumbles.</p></div>
-      <div class="card"><div class="art"><img src="img/cards/heal.webp" alt="Langit · Heal card art" width="512" height="677" loading="lazy"><span class="cost" title="Ice water cost">4</span></div><h3>Langit · Heal</h3><span class="kind k-heal">Heal · Langit Lupa</span><p>Tap to heal yourself, or drag to a teammate to heal them!</p></div>
-    </div>
-    <div class="deck-note">
-      <span><b class="k-attack">Attack</b> hurts</span>
-      <span><b class="k-control">Control</b> slows, stuns or knocks back</span>
-      <span><b class="k-block">Block</b> stops throws</span>
-      <span><b class="k-heal">Heal</b> patches up you or a friend</span>
-    </div>
-  </div>
-</section>
-
 <section id="play">
   <div class="wrap">
     <div class="head">
@@ -446,18 +387,5 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
   </div>
 </footer>
 
-<script>
-const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-// 1. Deal the deck once it scrolls into view
-const deck = document.querySelector(".deck");
-deck.querySelectorAll(".card").forEach((c, i) => c.style.setProperty("--i", i));
-if (!reduce && "IntersectionObserver" in window) {
-  const io = new IntersectionObserver(([e]) => {
-    if (e.isIntersecting) { deck.classList.add("dealing"); io.disconnect(); }
-  }, { threshold: 0.15 });
-  io.observe(deck);
-}
-</script>
 </body>
 </html>

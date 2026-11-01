@@ -4,7 +4,7 @@ One-page promotional site for **Kalyeah**, a 3v3 Filipino street-game brawler fo
 
 - `index.html`: the page, ready to open (all art is in `img/`, the game font is inlined).
 - `index.src.html`: the template it is built from.
-- `build.py`: fills the template with the weapon cards, kids and font from the game repo.
+- `build.py`: fills the template with the kids and font from the game repo.
 
 ## Rebuild
 

@@ -137,31 +137,6 @@ p { margin: 0; max-width: 62ch; }
 section { padding: 72px 0; }
 .head { display: grid; gap: 14px; margin-bottom: 36px; }
 
-/* The deck */
-.deck { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 18px; }
-.card { display: grid; gap: 6px; text-align: center; }
-.card .art { position: relative; transition: transform .18s ease; }
-.card:hover .art { transform: translateY(-6px) rotate(-2deg); }
-.cost {
-  position: absolute; left: 50%; bottom: -10px; transform: translateX(-50%);
-  width: 38px; height: 38px; display: grid; place-items: center;
-  font-family: var(--display); font-size: 1.15rem; color: #fff; -webkit-text-stroke: 1px var(--ink); paint-order: stroke fill;
-  background: radial-gradient(circle at 35% 30%, #9fe0ff, #2a8ee8 60%, #155fb3);
-  border: 2px solid #0c3f80; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-}
-.card h3 { font-size: 1.05rem; margin-top: 12px; }
-.card .kind { font-size: .85rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
-.k-attack { color: #ff8a7a; } .k-control { color: #c9a2ff; } .k-block { color: #8fc6ff; } .k-heal { color: #8ff0a8; }
-.card p { font-size: .92rem; line-height: 1.35; opacity: .85; }
-/* 1. Deal the deck: cards rest visible; script adds .dealing once the deck scrolls into view */
-.deck.dealing .card { animation: deal .55s cubic-bezier(.2,1.3,.4,1) backwards; animation-delay: calc(var(--i) * 70ms); }
-.deck.dealing .cost { animation: pop .35s cubic-bezier(.2,1.8,.4,1) backwards; animation-delay: calc(var(--i) * 70ms + 420ms); }
-@keyframes deal { from { opacity: 0; transform: translate(-40vw, -120px) rotate(-25deg) scale(.6); } }
-@keyframes pop { from { transform: translateX(-50%) scale(0); } }
-
-
-.deck-note { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px 26px; font-size: var(--s-1); }
-
 /* Three street games */
 .games { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .game {
@@ -257,15 +232,14 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
   .games { grid-template-columns: 1fr; }
   .game { grid-template-rows: 130px auto auto auto; }
   .game .icon { height: 130px; }
-  .kids, .deck, .screens {
+  .kids, .screens {
     display: flex; flex-wrap: nowrap; justify-content: flex-start; gap: 14px;
     overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
     margin-inline: -16px; padding: 6px 16px 18px; scrollbar-width: none;
   }
-  .kids::-webkit-scrollbar, .deck::-webkit-scrollbar, .screens::-webkit-scrollbar { display: none; }
-  .kid, .card, .screens figure { flex: 0 0 auto; scroll-snap-align: center; }
+  .kids::-webkit-scrollbar, .screens::-webkit-scrollbar { display: none; }
+  .kid, .screens figure { flex: 0 0 auto; scroll-snap-align: center; }
   .kid { width: 62%; }
-  .card { width: 46%; }
   .screens figure { width: 66%; }
   .screens .phone { width: 100%; }
   .kid:nth-child(even) img { transform: rotate(3deg); }
@@ -369,26 +343,6 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
   </div>
 </section>
 
-<section id="deck">
-  <div class="wrap">
-    <div class="head">
-      <span class="tag">14 cards, one deck</span>
-      <h2>Weapons from the games you grew up with</h2>
-      <p>In Agawan Base, nobody picks weapons. Every card is in one shuffled deck that cycles: throw one and it goes to the back, the next one slides in. The number on each card is its ice water cost.</p>
-    </div>
-    <p class="swipe-hint">Swipe through all 14 cards →</p>
-    <div class="deck">
-      __CARDS__
-    </div>
-    <div class="deck-note">
-      <span><b class="k-attack">Attack</b> hurts</span>
-      <span><b class="k-control">Control</b> slows, stuns or knocks back</span>
-      <span><b class="k-block">Block</b> stops throws</span>
-      <span><b class="k-heal">Heal</b> patches up you or a friend</span>
-    </div>
-  </div>
-</section>
-
 <section id="play">
   <div class="wrap">
     <div class="head">
@@ -428,18 +382,5 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
   </div>
 </footer>
 
-<script>
-const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-// 1. Deal the deck once it scrolls into view
-const deck = document.querySelector(".deck");
-deck.querySelectorAll(".card").forEach((c, i) => c.style.setProperty("--i", i));
-if (!reduce && "IntersectionObserver" in window) {
-  const io = new IntersectionObserver(([e]) => {
-    if (e.isIntersecting) { deck.classList.add("dealing"); io.disconnect(); }
-  }, { threshold: 0.15 });
-  io.observe(deck);
-}
-</script>
 </body>
 </html>
