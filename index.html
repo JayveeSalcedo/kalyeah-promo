@@ -150,6 +150,16 @@ section { padding: 72px 0; }
 .game p { font-size: .95rem; opacity: .9; }
 .games-note { margin-top: 18px; font-size: var(--s-1); opacity: .8; }
 
+/* Weapons montage: the card art scattered like cards on a table */
+.montage { display: flex; flex-wrap: wrap; justify-content: center; padding: 10px 0 20px; }
+.montage img {
+  width: 150px; margin: -6px -10px; position: relative;
+  filter: drop-shadow(0 10px 12px rgba(0,0,0,.45));
+  transform: rotate(var(--r)) translateY(var(--y));
+  transition: transform .2s ease;
+}
+.montage img:hover { z-index: 2; transform: rotate(0) translateY(-10px) scale(1.12); }
+
 /* Kids */
 .kids { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
 .kid { display: grid; gap: 8px; justify-items: center; text-align: center; }
@@ -232,6 +242,7 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
   .games { grid-template-columns: 1fr; }
   .game { grid-template-rows: 130px auto auto auto; }
   .game .icon { height: 130px; }
+  .montage img { width: 96px; margin: -4px -8px; }
   .kids, .screens {
     display: flex; flex-wrap: nowrap; justify-content: flex-start; gap: 14px;
     overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
@@ -345,6 +356,32 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
       <div class="kid"><img src="img/kids/inday.webp" alt="Inday character card" width="480" height="737" loading="lazy"><h3>Inday</h3><p>Wears a PE shirt and jogging pants, with pigtails tied in ponytail bands and rubber shoes ready to run.</p></div>
     </div>
     <div class="fair"><span class="tag">Fair play</span><p>Kids are cosmetic only. Same HP, same speed, same hitbox. The only thing that wins is how you play your hand.</p></div>
+  </div>
+</section>
+
+<section id="weapons">
+  <div class="wrap">
+    <div class="head">
+      <span class="tag">14 weapons</span>
+      <h2>Weapons from your favorite childhood games</h2>
+      <p>Slippers from Tumbang Preso, rock, paper and scissors from Bato-bato-pik, jacks and a bouncing ball from Jackstone, a spinning trumpo, and the sky and earth of Langit Lupa. Every one of them comes from a game you played on the street.</p>
+    </div>
+    <div class="montage">
+      <img src="img/cards/bato_heavy.webp" alt="Bato · Heavy" title="Bato · Heavy" width="512" height="677" loading="lazy" style="--r: -7deg; --y: 0px">
+      <img src="img/cards/bato_light.webp" alt="Bato · Light" title="Bato · Light" width="512" height="677" loading="lazy" style="--r: 5deg; --y: 14px">
+      <img src="img/cards/bola.webp" alt="Bola" title="Bola" width="512" height="677" loading="lazy" style="--r: -3deg; --y: -6px">
+      <img src="img/cards/gunting_heavy.webp" alt="Gunting · Heavy" title="Gunting · Heavy" width="512" height="677" loading="lazy" style="--r: 8deg; --y: 8px">
+      <img src="img/cards/gunting_light.webp" alt="Gunting · Light" title="Gunting · Light" width="512" height="677" loading="lazy" style="--r: -5deg; --y: -10px">
+      <img src="img/cards/heal.webp" alt="Langit · Heal" title="Langit · Heal" width="512" height="677" loading="lazy" style="--r: 3deg; --y: 12px">
+      <img src="img/cards/jacks.webp" alt="Jacks" title="Jacks" width="512" height="677" loading="lazy" style="--r: -8deg; --y: 2px">
+      <img src="img/cards/langit_lupa.webp" alt="Lupa · Soil Block" title="Lupa · Soil Block" width="512" height="677" loading="lazy" style="--r: 6deg; --y: -8px">
+      <img src="img/cards/lata.webp" alt="Lata" title="Lata" width="512" height="677" loading="lazy" style="--r: -2deg; --y: 10px">
+      <img src="img/cards/papel_shield.webp" alt="Papel · Shield" title="Papel · Shield" width="512" height="677" loading="lazy" style="--r: 7deg; --y: -4px">
+      <img src="img/cards/papel_trap.webp" alt="Papel · Trap" title="Papel · Trap" width="512" height="677" loading="lazy" style="--r: -6deg; --y: 6px">
+      <img src="img/cards/trumpo.webp" alt="Trumpo" title="Trumpo" width="512" height="677" loading="lazy" style="--r: 4deg; --y: -12px">
+      <img src="img/cards/tsinelas_heavy.webp" alt="Tsinelas · Heavy" title="Tsinelas · Heavy" width="512" height="677" loading="lazy" style="--r: -4deg; --y: 4px">
+      <img src="img/cards/tsinelas_light.webp" alt="Tsinelas · Light" title="Tsinelas · Light" width="512" height="677" loading="lazy" style="--r: 2deg; --y: -2px">
+    </div>
   </div>
 </section>
 
