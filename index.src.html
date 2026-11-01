@@ -137,27 +137,6 @@ p { margin: 0; max-width: 62ch; }
 section { padding: 72px 0; }
 .head { display: grid; gap: 14px; margin-bottom: 36px; }
 
-/* How a round goes */
-.round .wrap { display: grid; grid-template-columns: .8fr 1.2fr; gap: 48px; align-items: center; }
-.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: step; }
-.steps li {
-  counter-increment: step;
-  display: grid; grid-template-columns: 56px 1fr; gap: 16px; align-items: start;
-  background: rgba(8, 24, 70, .78);
-  border: 2px solid rgba(120, 170, 255, .35);
-  border-radius: 18px;
-  padding: 16px 18px;
-}
-.steps li::before {
-  content: counter(step);
-  font-family: var(--display); font-size: 1.7rem; color: var(--ink);
-  width: 56px; height: 56px; display: grid; place-items: center;
-  background: var(--gold); border-radius: 14px; box-shadow: 0 4px 0 var(--gold-deep);
-}
-.steps h3 { margin-bottom: 4px; }
-.num { font-family: var(--display); color: var(--gold); font-variant-numeric: tabular-nums; }
-.blue-t { color: #8fb8ff; } .red-t { color: #ff8a8a; }
-
 /* The deck */
 .deck { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 18px; }
 .card { display: grid; gap: 6px; text-align: center; }
@@ -180,33 +159,6 @@ section { padding: 72px 0; }
 @keyframes deal { from { opacity: 0; transform: translate(-40vw, -120px) rotate(-25deg) scale(.6); } }
 @keyframes pop { from { transform: translateX(-50%) scale(0); } }
 
-/* 2 + 3. A live hand: four cards, Next, and the ice water bar, like the bottom of the match screen */
-.hand { margin-top: 18px; display: grid; gap: 10px; }
-.tray {
-  display: grid; grid-template-columns: .72fr repeat(4, 1fr); gap: 10px; align-items: end;
-  padding: 16px 14px 14px;
-  background: linear-gradient(#3d8cf5, #1f5fd0 70%, #1a4fb0);
-  border-radius: 20px 20px 14px 14px;
-  box-shadow: inset 0 3px 0 rgba(255,255,255,.35), 0 10px 24px rgba(0,0,0,.35);
-}
-.slot { position: relative; display: grid; gap: 4px; justify-items: center; }
-.slot img { width: 100%; filter: drop-shadow(0 4px 4px rgba(0,0,0,.35)); }
-.slot .cost { width: 30px; height: 30px; font-size: .95rem; bottom: -8px; }
-.slot.next { align-self: start; }
-.slot.next span { font-family: var(--display); font-size: .85rem; }
-.slot.next img { opacity: .9; transition: opacity .2s ease; }
-.slot .art { position: relative; width: 100%; }
-.slot.low .art img { filter: grayscale(.7) brightness(.7) drop-shadow(0 4px 4px rgba(0,0,0,.35)); }
-.slot.thrown .art { animation: throw .45s ease-in forwards; }
-.slot.incoming .art { animation: arrive .4s cubic-bezier(.2,1.6,.4,1); }
-@keyframes throw { to { transform: translateY(-160px) rotate(18deg) scale(.5); opacity: 0; } }
-@keyframes arrive { from { transform: translateX(-120%) scale(.6); opacity: .3; } }
-.water { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: center; }
-.water b { font-family: var(--display); font-weight: 400; font-size: 1.4rem; font-variant-numeric: tabular-nums; min-width: 2.2ch; text-align: right; }
-.bar { position: relative; height: 18px; border-radius: 9px; background: #0c2a66; overflow: hidden; box-shadow: inset 0 2px 3px rgba(0,0,0,.4); }
-.bar i { position: absolute; inset: 0 auto 0 0; width: calc(var(--w, .5) * 100%); background: linear-gradient(#9fe0ff, #2a8ee8); }
-.bar::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), #0c2a66 calc(10% - 2px) 10%); }
-.hand small { font-size: .85rem; opacity: .75; }
 
 .deck-note { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px 26px; font-size: var(--s-1); }
 
@@ -389,32 +341,15 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
   </div>
 </section>
 
-<section class="round" id="round">
+<section id="screens">
   <div class="wrap">
-    <div class="phone"><img src="img/shot_match.jpg" alt="Agawan Base at the start of a round: blue and red bases at the corners, kids with numbered health bars, four weapon cards on the blue tray at the bottom" width="720" height="1280" loading="lazy"></div>
-    <div>
-      <div class="head">
-        <span class="tag">Agawan Base</span>
-        <h2>How Agawan Base plays</h2>
-        <p>The base-stealing game every Filipino kid played after school, now on one street seen from above. Everyone starts equal: <span class="num">100</span> HP, the same speed, the same hitbox.</p>
-      </div>
-      <ol class="steps">
-        <li><div><h3>Throw what's in your hand</h3><p>Four cards sit on your tray, the fifth waits as Next. Tap a card to throw it, drag to aim. Each one costs ice water, which fills while you play.</p></div></li>
-        <li><div><h3>Tag them</h3><p>Bring a kid to <span class="num">0</span> HP and they're tagged: off to the sidewalk beside their rescue area, out of the round until a friend comes.</p></div></li>
-        <li><div><h3>Save your friends</h3><p>Stand in your rescue area for <span class="num">5 s</span> to free the teammate who got tagged first. Every rescue restarts a <span class="num">10 s</span> countdown, so pick your moment.</p></div></li>
-        <li><div><h3>Take their post</h3><p>Hold the <span class="red-t">enemy base</span> for <span class="num">12 s</span> alone, faster with friends, or tag their whole team. The clock runs <span class="num">3:00</span>, then a <span class="num">1:00</span> extension, then overtime, where a capture takes only <span class="num">3 s</span>. First to <span class="num">3</span> wins the match.</p></div></li>
-      </ol>
-      <div class="hand" id="hand" aria-label="A hand of four weapon cards cycling as they are thrown">
-        <div class="tray">
-          <div class="slot next"><span>Next</span><div class="art"><img alt="" width="512" height="677"></div></div>
-          <div class="slot"><div class="art"><img alt="" width="512" height="677"><span class="cost"></span></div></div>
-          <div class="slot"><div class="art"><img alt="" width="512" height="677"><span class="cost"></span></div></div>
-          <div class="slot"><div class="art"><img alt="" width="512" height="677"><span class="cost"></span></div></div>
-          <div class="slot"><div class="art"><img alt="" width="512" height="677"><span class="cost"></span></div></div>
-        </div>
-        <div class="water"><b id="water-num">5</b><div class="bar"><i id="water-bar"></i></div></div>
-        <small>Ice water fills at 0.6 a second, up to 10. Here it runs twice as fast.</small>
-      </div>
+    <div class="head"><span class="tag">Straight from the game</span><h2>On your phone</h2></div>
+    <p class="swipe-hint">Swipe for more screens →</p>
+    <div class="screens">
+      <figure><div class="phone"><img src="img/shot_home.jpg" alt="Home screen with the Local mode card and Create and Join buttons" width="720" height="1280" loading="lazy"></div><figcaption>Home</figcaption></figure>
+            <figure><div class="phone"><img src="img/shot_match.jpg" alt="Agawan Base at the start of a round: blue and red bases, the kids with numbered health bars and the weapon tray" width="720" height="1280" loading="lazy"></div><figcaption>Agawan Base</figcaption></figure>
+      <figure><div class="phone"><img src="img/shot_tumbang.jpg" alt="Tumbang Preso: the throwers on the line, the taya by the can, coloured slippers on the street and the points column" width="720" height="1280" loading="lazy"></div><figcaption>Tumbang Preso</figcaption></figure>
+      <figure><div class="phone"><img src="img/shot_patintero.jpg" alt="Patintero: runners crossing the chalk court past guards on the lines, a tagged runner on the sidewalk" width="720" height="1280" loading="lazy"></div><figcaption>Patintero</figcaption></figure>
     </div>
   </div>
 </section>
@@ -468,19 +403,6 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
   </div>
 </section>
 
-<section id="screens">
-  <div class="wrap">
-    <div class="head"><span class="tag">Straight from the game</span><h2>On your phone</h2></div>
-    <p class="swipe-hint">Swipe for more screens →</p>
-    <div class="screens">
-      <figure><div class="phone"><img src="img/shot_home.jpg" alt="Home screen with the Local mode card and Create and Join buttons" width="720" height="1280" loading="lazy"></div><figcaption>Home</figcaption></figure>
-            <figure><div class="phone"><img src="img/shot_match.jpg" alt="Agawan Base at the start of a round: blue and red bases, the kids with numbered health bars and the weapon tray" width="720" height="1280" loading="lazy"></div><figcaption>Agawan Base</figcaption></figure>
-      <figure><div class="phone"><img src="img/shot_tumbang.jpg" alt="Tumbang Preso: the throwers on the line, the taya by the can, coloured slippers on the street and the points column" width="720" height="1280" loading="lazy"></div><figcaption>Tumbang Preso</figcaption></figure>
-      <figure><div class="phone"><img src="img/shot_patintero.jpg" alt="Patintero: runners crossing the chalk court past guards on the lines, a tagged runner on the sidewalk" width="720" height="1280" loading="lazy"></div><figcaption>Patintero</figcaption></figure>
-    </div>
-  </div>
-</section>
-
 <footer>
   <div class="wrap">
     <div>
@@ -507,7 +429,6 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
 </footer>
 
 <script>
-const DECK = __DECK__;
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // 1. Deal the deck once it scrolls into view
@@ -519,63 +440,6 @@ if (!reduce && "IntersectionObserver" in window) {
   }, { threshold: 0.15 });
   io.observe(deck);
 }
-
-// 2 + 3. The hand cycles: throw an affordable card, it goes to the back, Next slides in
-(() => {
-  const MAX = 10, REGEN = 0.6 * 2, THROW_EVERY = 1.6;
-  const queue = DECK.slice();
-  for (let i = queue.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [queue[i], queue[j]] = [queue[j], queue[i]]; }
-  const hand = queue.splice(0, 4);
-  let next = queue.shift();
-  let water = 5, wait = THROW_EVERY, busy = false, visible = false, last = 0;
-  const slots = [...document.querySelectorAll("#hand .slot:not(.next)")];
-  const nextImg = document.querySelector("#hand .slot.next img");
-  const num = document.getElementById("water-num"), bar = document.getElementById("water-bar");
-  const show = (slot, card) => {
-    const img = slot.querySelector("img");
-    img.src = "img/cards/" + card.id + ".webp"; img.alt = card.name;
-    slot.querySelector(".cost").textContent = card.cost;
-  };
-  const paint = () => {
-    num.textContent = Math.floor(water);
-    bar.style.setProperty("--w", water / MAX);
-    slots.forEach((s, i) => s.classList.toggle("low", hand[i].cost > water));
-  };
-  slots.forEach((s, i) => show(s, hand[i]));
-  nextImg.src = "img/cards/" + next.id + ".webp"; nextImg.alt = "Next: " + next.name;
-  paint();
-  if (reduce) return;
-
-  const throwOne = () => {
-    const ready = hand.map((c, i) => i).filter(i => hand[i].cost <= water);
-    if (!ready.length) return;
-    const i = ready[Math.floor(Math.random() * ready.length)];
-    const slot = slots[i];
-    water -= hand[i].cost; busy = true; paint();
-    slot.classList.add("thrown");
-    setTimeout(() => {
-      queue.push(hand[i]);
-      hand[i] = next; next = queue.shift();
-      show(slot, hand[i]);
-      nextImg.src = "img/cards/" + next.id + ".webp"; nextImg.alt = "Next: " + next.name;
-      slot.classList.remove("thrown"); slot.classList.add("incoming");
-      setTimeout(() => { slot.classList.remove("incoming"); busy = false; }, 400);
-      paint();
-    }, 450);
-  };
-  const frame = (t) => {
-    const dt = Math.min((t - last) / 1000 || 0, 0.1); last = t;
-    if (visible && !document.hidden) {
-      water = Math.min(MAX, water + REGEN * dt);
-      wait -= dt;
-      if (wait <= 0 && !busy) { wait = THROW_EVERY + Math.random(); throwOne(); }
-      paint();
-    }
-    requestAnimationFrame(frame);
-  };
-  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(document.getElementById("hand"));
-  requestAnimationFrame(frame);
-})();
 </script>
 </body>
 </html>

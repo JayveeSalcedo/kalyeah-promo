@@ -4,7 +4,6 @@ Run from the repo root: python3 promo/build.py
 """
 import base64
 import html
-import json
 import pathlib
 import re
 
@@ -39,11 +38,6 @@ def cards() -> str:
     return "\n      ".join(rows)
 
 
-def deck() -> str:
-    weapons = [fields(p) for p in sorted((ROOT / "data/weapons").glob("*.tres"))]
-    return json.dumps([{"id": w["id"], "name": w["display_name"], "cost": int(w["elixir_cost"])} for w in weapons])
-
-
 def kids() -> str:
     rows = []
     for kid_id in KID_ORDER:
@@ -59,7 +53,7 @@ def kids() -> str:
 def main() -> None:
     font = base64.b64encode((ROOT / "assets/fonts/clash/Clash-Regular.otf").read_bytes()).decode()
     page = (PROMO / "index.src.html").read_text(encoding="utf-8")
-    page = page.replace("__CLASH__", font).replace("__CARDS__", cards()).replace("__KIDS__", kids()).replace("__DECK__", deck())
+    page = page.replace("__CLASH__", font).replace("__CARDS__", cards()).replace("__KIDS__", kids())
     (PROMO / "index.html").write_text(page, encoding="utf-8")
 
 
