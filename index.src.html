@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kalyeah</title>
-<meta name="description" content="Kalyeah: a 3v3 street-game brawler for Android. Filipino kids, a deck of tsinelas, lata and trumpo, and one barangay street.">
+<meta name="description" content="Kalyeah: Agawan Base, Tumbang Preso and Patintero on one barangay street. A Filipino street-game brawler for Android, with Local play and no internet needed.">
 <link rel="canonical" href="https://kalyeah-promo.vercel.app/">
 <link rel="icon" type="image/png" href="img/icon.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Kalyeah">
 <meta property="og:title" content="Kalyeah: a new way to play the classics">
-<meta property="og:description" content="A 3v3 Filipino street-game brawler for Android. Six kids, one street, a deck of tsinelas, lata and trumpo. Play with friends nearby, no internet needed.">
+<meta property="og:description" content="Agawan Base, Tumbang Preso and Patintero on one barangay street. A Filipino street-game brawler for Android. Play with friends nearby, no internet needed.">
 <meta property="og:url" content="https://kalyeah-promo.vercel.app/">
 <meta property="og:image" content="https://kalyeah-promo.vercel.app/img/boot_bg.webp">
 <meta name="twitter:card" content="summary_large_image">
@@ -210,6 +210,19 @@ section { padding: 72px 0; }
 
 .deck-note { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px 26px; font-size: var(--s-1); }
 
+/* Three street games */
+.games { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.game {
+  display: grid; grid-template-rows: 170px auto auto 1fr; gap: 8px; justify-items: center; text-align: center;
+  padding: 20px 20px 24px; border-radius: 22px;
+  background: rgba(8, 24, 70, .78); border: 2px solid rgba(120, 170, 255, .35);
+}
+.game .icon { height: 170px; width: auto; object-fit: contain; filter: drop-shadow(0 12px 14px rgba(0,0,0,.45)); }
+.game h3 { font-size: var(--s2); color: var(--gold); -webkit-text-stroke: 1.5px var(--ink); paint-order: stroke fill; text-shadow: 0 3px 0 var(--ink); }
+.game .format { font-weight: 700; font-size: .85rem; padding: .2em .8em; border-radius: 999px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.3); }
+.game p { font-size: .95rem; opacity: .9; }
+.games-note { margin-top: 18px; font-size: var(--s-1); opacity: .8; }
+
 /* Kids */
 .kids { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
 .kid { display: grid; gap: 8px; justify-items: center; text-align: center; }
@@ -246,7 +259,7 @@ section { padding: 72px 0; }
 /* Screens strip */
 .screens { display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; }
 .screens figure { margin: 0; display: grid; gap: 12px; justify-items: center; }
-.screens .phone { width: 250px; }
+.screens .phone { width: 230px; }
 .screens figcaption { font-family: var(--display); }
 
 /* Footer */
@@ -255,6 +268,7 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
 .specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px 24px; margin: 22px 0 0; }
 .specs dt { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; opacity: .7; }
 .specs dd { margin: 0; font-weight: 700; }
+.studio { width: 200px; margin-top: 26px; mix-blend-mode: screen; }
 .team { margin-top: 30px; display: grid; gap: 10px; }
 .team ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 28px; }
 .team li { font-family: var(--display); font-size: var(--s1); color: var(--gold); -webkit-text-stroke: 1px var(--ink); paint-order: stroke fill; }
@@ -288,6 +302,9 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
   .tray { gap: 6px; padding: 12px 10px 12px; }
   .head { margin-bottom: 22px; }
 
+  .games { grid-template-columns: 1fr; }
+  .game { grid-template-rows: 130px auto auto auto; }
+  .game .icon { height: 130px; }
   .kids, .deck, .screens {
     display: flex; flex-wrap: nowrap; justify-content: flex-start; gap: 14px;
     overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
@@ -322,14 +339,15 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
       <img class="logo" src="img/kalyeah_logo.png" alt="Kalyeah!" width="1000" height="357">
       <span class="tag">A NEW WAY TO PLAY THE CLASSICS</span>
       <h1>Grab your tsinelas. The whole barangay is watching.</h1>
-      <p class="lede">A 3v3 street-game brawler for Android. Six kids, one street, a shuffled deck of slippers, cans, jackstones and spinning tops. Tag the other team, save your friends, and take their electric post.</p>
+      <p class="lede">Three Filipino street games on one barangay street, for Android: <b>Agawan Base</b>, <b>Tumbang Preso</b> and <b>Patintero</b>. Six kids, a shuffled deck of slippers, cans, jackstones and spinning tops, and your friends right beside you.</p>
       <div class="ctas">
         <a class="btn" href="https://github.com/JayveeSalcedo/kalyeah-promo/releases/latest/download/kalyeah.apk" type="application/vnd.android.package-archive">Get the Android APK</a>
         <a class="btn blue" href="#play">Play with friends nearby</a>
       </div>
       <p class="apk-note">Free download · 200 MB · Android 8.0+. Your phone will ask to allow installing from your browser.</p>
       <ul class="facts">
-        <li>1v1, 2v2, 3v3</li>
+        <li>3 street games</li>
+        <li>1v1 to 3v3, or 6 for Tumbang Preso</li>
         <li>Portrait, one thumb</li>
         <li>No accounts, no levels</li>
         <li>Local play, no internet needed</li>
@@ -340,20 +358,51 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
   </div>
 </header>
 
+<section id="games">
+  <div class="wrap">
+    <div class="head">
+      <span class="tag">Three street games</span>
+      <h2>Pick your game</h2>
+      <p>The games every kid on the street knows, played on the same street with the same six kids. Pick one in Practice, or let the room's host pick it in Local and Online.</p>
+    </div>
+    <div class="games">
+      <article class="game">
+        <img class="icon" src="img/games/agawan_base.webp" alt="Electric post, the base in Agawan Base" width="335" height="512" loading="lazy">
+        <h3>Agawan Base</h3>
+        <span class="format">1v1 to 3v3 · Teams · First to 3</span>
+        <p>Two teams, two bases! Tag the other team, free your own, and hold their base. The only game with the weapon deck.</p>
+      </article>
+      <article class="game">
+        <img class="icon" src="img/games/tumbang_preso.webp" alt="Tin can, the target in Tumbang Preso" width="512" height="502" loading="lazy">
+        <h3>Tumbang Preso</h3>
+        <span class="format">3 to 6 kids · Every kid for itself · 5 min</span>
+        <p>Knock the can over with your slipper, fetch it, and run to the other end to score. Wait too long and you become the taya, the one who guards the can.</p>
+      </article>
+      <article class="game">
+        <img class="icon" src="img/games/patintero.webp" alt="Chalk court, the field in Patintero" width="512" height="499" loading="lazy">
+        <h3>Patintero</h3>
+        <span class="format">Teams · Runners and guards · 5 min</span>
+        <p>Get past the guards on the chalk lines, cross the middle line, reach the far end and run back. One runner home is a point for the team. Dive to slip past!</p>
+      </article>
+    </div>
+    <p class="games-note">Watch your step: in every game, kids can trip while running.</p>
+  </div>
+</section>
+
 <section class="round" id="round">
   <div class="wrap">
-    <div class="phone"><img src="img/shot_match.jpg" alt="A live practice match: blue and red bases at the corners, kids with numbered health bars, four weapon cards on the blue tray at the bottom" width="720" height="1280" loading="lazy"></div>
+    <div class="phone"><img src="img/shot_match.jpg" alt="Agawan Base at the start of a round: blue and red bases at the corners, kids with numbered health bars, four weapon cards on the blue tray at the bottom" width="720" height="1280" loading="lazy"></div>
     <div>
       <div class="head">
         <span class="tag">Agawan Base</span>
-        <h2>How a round goes</h2>
+        <h2>How Agawan Base plays</h2>
         <p>The base-stealing game every Filipino kid played after school, now on one street seen from above. Everyone starts equal: <span class="num">100</span> HP, the same speed, the same hitbox.</p>
       </div>
       <ol class="steps">
         <li><div><h3>Throw what's in your hand</h3><p>Four cards sit on your tray, the fifth waits as Next. Tap a card to throw it, drag to aim. Each one costs ice water, which fills while you play.</p></div></li>
         <li><div><h3>Tag them</h3><p>Bring a kid to <span class="num">0</span> HP and they're tagged: off to the sidewalk beside their rescue area, out of the round until a friend comes.</p></div></li>
         <li><div><h3>Save your friends</h3><p>Stand in your rescue area for <span class="num">5 s</span> to free the teammate who got tagged first. Every rescue restarts a <span class="num">10 s</span> countdown, so pick your moment.</p></div></li>
-        <li><div><h3>Take their post</h3><p>Hold the <span class="red-t">enemy base</span> for <span class="num">12 s</span> alone, faster with friends, or tag their whole team. After <span class="num">3:00</span> the round goes to overtime and a capture takes only <span class="num">3 s</span>. First to <span class="num">3</span> wins the match.</p></div></li>
+        <li><div><h3>Take their post</h3><p>Hold the <span class="red-t">enemy base</span> for <span class="num">12 s</span> alone, faster with friends, or tag their whole team. The clock runs <span class="num">3:00</span>, then a <span class="num">1:00</span> extension, then overtime, where a capture takes only <span class="num">3 s</span>. First to <span class="num">3</span> wins the match.</p></div></li>
       </ol>
       <div class="hand" id="hand" aria-label="A hand of four weapon cards cycling as they are thrown">
         <div class="tray">
@@ -390,7 +439,7 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
     <div class="head">
       <span class="tag">14 cards, one deck</span>
       <h2>Weapons from the games you grew up with</h2>
-      <p>Nobody picks weapons. Every card is in one shuffled deck that cycles: throw one and it goes to the back, the next one slides in. The number on each card is its ice water cost.</p>
+      <p>In Agawan Base, nobody picks weapons. Every card is in one shuffled deck that cycles: throw one and it goes to the back, the next one slides in. The number on each card is its ice water cost.</p>
     </div>
     <p class="swipe-hint">Swipe through all 14 cards →</p>
     <div class="deck">
@@ -412,9 +461,9 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
       <h2>Best with your barkada, right beside you</h2>
     </div>
     <div class="modes">
-      <div class="mode m-online"><img src="img/modes/online.png" alt="Glowing blue online court diorama" width="768" height="717" loading="lazy"><h3>Online</h3><span class="tagline">Invite friends with a room code!</span><p>Make a private room, share the 8-character code, pick your team slot and ready up.</p></div>
-      <div class="mode m-local"><span class="tag">Best way to play</span><img src="img/modes/hotspot.png" alt="Street court diorama with a hopscotch grid" width="768" height="717" loading="lazy"><h3>Local</h3><span class="tagline">Battle your friends nearby!</span><p>The way the street games were always played: together, in the same place. One phone turns on its hotspot and hosts the room, and everyone nearby joins it in a tap.</p><ul><li>No internet</li><li>No server</li><li>No room code</li><li>Up to 3v3</li></ul></div>
-      <div class="mode m-practice"><img src="img/modes/practice.png" alt="Street basketball court diorama with a wooden training dummy" width="768" height="717" loading="lazy"><h3>Practice</h3><span class="tagline">Take on 3 bots, solo!</span><p>A full 3v3 with two bot allies against three bot rivals. Works with no signal at all.</p></div>
+      <div class="mode m-online"><img src="img/modes/online.png" alt="Glowing blue online court diorama" width="768" height="717" loading="lazy"><h3>Online</h3><span class="tagline">Invite friends with a room code!</span><p>Make a room and pick the game. Friends find it in the open rooms list or join with its 8-character code.</p></div>
+      <div class="mode m-local"><span class="tag">Best way to play</span><img src="img/modes/hotspot.png" alt="Street court diorama with a hopscotch grid" width="768" height="717" loading="lazy"><h3>Local</h3><span class="tagline">Battle your friends nearby!</span><p>The way the street games were always played: together, in the same place. One phone turns on its hotspot and hosts the room, everyone nearby joins it in a tap, and the host picks the game.</p><ul><li>No internet</li><li>No server</li><li>No room code</li><li>All 3 games</li></ul></div>
+      <div class="mode m-practice"><img src="img/modes/practice.png" alt="Street basketball court diorama with a wooden training dummy" width="768" height="717" loading="lazy"><h3>Practice</h3><span class="tagline">Take on 3 bots, solo!</span><p>Pick any of the three games and Easy, Medium or Hard bots. Works with no signal at all.</p></div>
     </div>
   </div>
 </section>
@@ -425,8 +474,9 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
     <p class="swipe-hint">Swipe for more screens →</p>
     <div class="screens">
       <figure><div class="phone"><img src="img/shot_home.jpg" alt="Home screen with the Local mode card and Create and Join buttons" width="720" height="1280" loading="lazy"></div><figcaption>Home</figcaption></figure>
-      <figure><div class="phone"><img src="img/shot_pick.jpg" alt="Choose your kid screen showing Ligaya's card" width="720" height="1280" loading="lazy"></div><figcaption>Choose your kid</figcaption></figure>
-      <figure><div class="phone"><img src="img/shot_match.jpg" alt="Practice match in progress" width="720" height="1280" loading="lazy"></div><figcaption>In the match</figcaption></figure>
+            <figure><div class="phone"><img src="img/shot_match.jpg" alt="Agawan Base at the start of a round: blue and red bases, the kids with numbered health bars and the weapon tray" width="720" height="1280" loading="lazy"></div><figcaption>Agawan Base</figcaption></figure>
+      <figure><div class="phone"><img src="img/shot_tumbang.jpg" alt="Tumbang Preso: the throwers on the line, the taya by the can, coloured slippers on the street and the points column" width="720" height="1280" loading="lazy"></div><figcaption>Tumbang Preso</figcaption></figure>
+      <figure><div class="phone"><img src="img/shot_patintero.jpg" alt="Patintero: runners crossing the chalk court past guards on the lines, a tagged runner on the sidewalk" width="720" height="1280" loading="lazy"></div><figcaption>Patintero</figcaption></figure>
     </div>
   </div>
 </section>
@@ -441,6 +491,7 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
         <div><dt>Screen</dt><dd>Portrait only</dd></div>
         <div><dt>Sign-in</dt><dd>None</dd></div>
       </dl>
+      <img class="studio" src="img/sanga_studios.png" alt="Sanga Studios" width="380" height="190" loading="lazy">
       <div class="team">
         <span class="tag">Made by</span>
         <ul>
@@ -449,7 +500,7 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
           <li>Richard Ace Vallo</li>
         </ul>
       </div>
-      <p class="small">Kalyeah is an entry for an Android game development competition, built with Godot 4.6.</p>
+      <p class="small">Kalyeah is a Sanga Studios game and an entry for an Android game development competition, built with Godot 4.6.</p>
     </div>
     <img src="img/kalyeah_logo.png" alt="" width="1000" height="357" style="width:260px" loading="lazy">
   </div>
