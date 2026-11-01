@@ -205,7 +205,10 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
 .specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px 24px; margin: 22px 0 0; }
 .specs dt { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; opacity: .7; }
 .specs dd { margin: 0; font-weight: 700; }
-.studio { width: 200px; margin-top: 26px; mix-blend-mode: screen; }
+.brand { display: flex; align-items: center; gap: 18px; }
+.brand .game-logo { width: 240px; }
+.brand .by { font-family: var(--display); font-size: var(--s1); opacity: .7; }
+.studio { width: 170px; mix-blend-mode: screen; }
 .team { margin-top: 30px; display: grid; gap: 10px; }
 .team ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 28px; }
 .team li { font-family: var(--display); font-size: var(--s1); color: var(--gold); -webkit-text-stroke: 1px var(--ink); paint-order: stroke fill; }
@@ -261,7 +264,9 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
   .m-online img, .m-practice img { max-width: 260px; }
   .m-local { padding: 20px 16px 22px; }
   .specs { grid-template-columns: 1fr 1fr; }
-  footer img { width: 200px !important; }
+  .brand { gap: 10px; }
+  .brand .game-logo { width: 160px; }
+  .studio { width: 120px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -409,7 +414,6 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
         <div><dt>Screen</dt><dd>Portrait only</dd></div>
         <div><dt>Sign-in</dt><dd>None</dd></div>
       </dl>
-      <img class="studio" src="img/sanga_studios.png" alt="Sanga Studios" width="380" height="190" loading="lazy">
       <div class="team">
         <span class="tag">Made by</span>
         <ul>
@@ -420,7 +424,11 @@ footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-
       </div>
       <p class="small">Kalyeah is a Sanga Studios game and an entry for an Android game development competition, built with Godot 4.6.</p>
     </div>
-    <img src="img/kalyeah_logo.png" alt="" width="1000" height="357" style="width:260px" loading="lazy">
+    <div class="brand">
+      <img class="game-logo" src="img/kalyeah_logo.png" alt="Kalyeah" width="1000" height="357" loading="lazy">
+      <span class="by">by</span>
+      <img class="studio" src="img/sanga_studios.png" alt="Sanga Studios" width="380" height="190" loading="lazy">
+    </div>
   </div>
 </footer>
 
